@@ -1,0 +1,44 @@
+name: Publish educational classification dataset
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/generate_dataset.py"
+      - ".github/workflows/publish_dataset.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned dependency
+        run: python -m pip install numpy==2.3.5
+
+      - name: Reproduce the dataset
+        run: python scripts/generate_dataset.py
+
+      - name: Validate exact original CSV checksum
+        run: |
+          echo "51f26853dd048f140601cfffae139896138ab383e6d385bed6dd6d6d54861e88  Enterprise_Security_Alerts_Classification.csv" | sha256sum --check
+
+      - name: Commit and publish CSV
+        run: |
+          git add Enterprise_Security_Alerts_Classification.csv
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Publish verified enterprise security classification CSV"
+            git push
+          fi
