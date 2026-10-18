@@ -27,13 +27,12 @@ The dataset was **generated for educational use** and is not a collection of obs
 
 The table combines alert metadata, account and asset context, network activity indicators, security scores, timestamps, and investigation outcome attributes. Some columns have missing values, and some become available **only after** the alert is investigated. This is intentional for teaching feature-availability checks, leakage prevention, and practical ML evaluation.
 
-## Files
+## Repository files
 
 | Filename | Description |
 | --- | --- |
-| `Enterprise_Security_Alerts_Classification.csv` | Full 52,000-row classification dataset |
-| `Enterprise_Security_Alerts_Data_Dictionary.md` | Definitions and prediction-time availability for all 37 columns |
-| `Enterprise_Security_Incident_Classification_Assignment.docx` | Optional MSc practical assessment brief, if included in the repository |
+| `Enterprise_Security_Alerts_Classification.csv` | Complete 52,000-row, 37-column classification dataset |
+| `README.md` | Dataset documentation, feature-availability guidance, and evaluation protocol |
 
 ## ML tasks
 
